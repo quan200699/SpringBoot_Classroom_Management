@@ -17,4 +17,6 @@ public class Lecture {
     private String name;
 
     private String job;
+
+    private String language;
 }
