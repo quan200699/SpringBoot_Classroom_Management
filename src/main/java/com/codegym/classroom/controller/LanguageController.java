@@ -28,8 +28,8 @@ public class LanguageController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Language> getLanguage(@PathVariable Long id) {
-        Optional<Language> moduleOptional = languageService.findById(id);
-        return moduleOptional.map(language -> new ResponseEntity<>(language, HttpStatus.OK))
+        Optional<Language> languageOptional = languageService.findById(id);
+        return languageOptional.map(language -> new ResponseEntity<>(language, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
