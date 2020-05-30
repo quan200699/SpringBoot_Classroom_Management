@@ -1,5 +1,7 @@
 package com.codegym.classroom.service.lecture;
 
+import com.codegym.classroom.model.Job;
+import com.codegym.classroom.model.Language;
 import com.codegym.classroom.model.Lecture;
 import com.codegym.classroom.repository.ILectureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +32,15 @@ public class LectureService implements ILectureService {
     @Override
     public void remove(Long id) {
         lectureRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<Lecture> findAllByJob(Job job) {
+        return lectureRepository.findAllByJob(job);
+    }
+
+    @Override
+    public Iterable<Lecture> findAllByLanguages(Language language) {
+        return lectureRepository.findAllByLanguages(language);
     }
 }

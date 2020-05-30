@@ -1,7 +1,9 @@
 package com.codegym.classroom.controller;
 
 import com.codegym.classroom.model.Language;
+import com.codegym.classroom.model.Lecture;
 import com.codegym.classroom.service.language.ILanguageService;
+import com.codegym.classroom.service.lecture.ILectureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,9 @@ import java.util.Optional;
 public class LanguageController {
     @Autowired
     private ILanguageService languageService;
+
+    @Autowired
+    private ILectureService lectureService;
 
     @GetMapping
     public ResponseEntity<Iterable<Language>> getAllLanguage() {
@@ -30,6 +35,13 @@ public class LanguageController {
     public ResponseEntity<Language> getLanguage(@PathVariable Long id) {
         Optional<Language> languageOptional = languageService.findById(id);
         return languageOptional.map(language -> new ResponseEntity<>(language, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Iterable<Lecture>> getAllLecture(@PathVariable Long id) {
+        Optional<Language> languageOptional = languageService.findById(id);
+        return languageOptional.map(language -> new ResponseEntity<>(lectureService.findAllByLanguages(language), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 

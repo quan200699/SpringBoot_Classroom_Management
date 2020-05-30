@@ -1,7 +1,9 @@
 package com.codegym.classroom.controller;
 
 import com.codegym.classroom.model.Job;
+import com.codegym.classroom.model.Lecture;
 import com.codegym.classroom.service.job.IJobService;
+import com.codegym.classroom.service.lecture.ILectureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,9 @@ import java.util.Optional;
 public class JobController {
     @Autowired
     private IJobService jobService;
+
+    @Autowired
+    private ILectureService lectureService;
 
     @GetMapping
     public ResponseEntity<Iterable<Job>> getAllJob() {
@@ -49,5 +54,13 @@ public class JobController {
             jobService.remove(id);
             return new ResponseEntity<>(job, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+
+    @GetMapping("/{id}/lectures")
+    public ResponseEntity<Iterable<Lecture>> getAllLecture(@PathVariable Long id) {
+        Optional<Job> jobOptional = jobService.findById(id);
+        return jobOptional.map(job -> new ResponseEntity<>(lectureService.findAllByJob(job), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
