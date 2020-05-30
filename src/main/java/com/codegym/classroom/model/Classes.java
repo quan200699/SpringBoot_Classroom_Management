@@ -32,5 +32,5 @@ public class Classes {
     @JoinTable(name = "class_tutor",
             joinColumns = {@JoinColumn(name = "class_id")},
             inverseJoinColumns = {@JoinColumn(name = "tutor_id")})
-    private Set<Lecture> lectures;
+    private Set<Lecture> tutors;
 }
