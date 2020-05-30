@@ -14,7 +14,8 @@ public class Lecture {
 
     private String name;
 
-    private String job;
+    @ManyToOne
+    private Job job;
 
     @ManyToMany
     private Set<Language> languages;
