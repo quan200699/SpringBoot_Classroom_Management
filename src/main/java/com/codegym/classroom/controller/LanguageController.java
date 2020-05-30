@@ -38,7 +38,7 @@ public class LanguageController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/lectures")
     public ResponseEntity<Iterable<Lecture>> getAllLecture(@PathVariable Long id) {
         Optional<Language> languageOptional = languageService.findById(id);
         return languageOptional.map(language -> new ResponseEntity<>(lectureService.findAllByLanguages(language), HttpStatus.OK))
