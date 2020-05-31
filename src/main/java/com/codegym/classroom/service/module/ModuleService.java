@@ -1,6 +1,7 @@
 package com.codegym.classroom.service.module;
 
 import com.codegym.classroom.model.Module;
+import com.codegym.classroom.model.Program;
 import com.codegym.classroom.repository.IModuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,10 @@ public class ModuleService implements IModuleService {
     @Override
     public void remove(Long id) {
         moduleRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<Module> findAllByProgram(Program program) {
+        return moduleRepository.findAllByProgram(program);
     }
 }

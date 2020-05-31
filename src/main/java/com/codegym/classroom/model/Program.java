@@ -12,7 +12,4 @@ public class Program {
     private Long id;
 
     private String name;
-
-    @ManyToOne
-    private Module module;
 }
