@@ -2,6 +2,7 @@ package com.codegym.classroom.service.classes;
 
 import com.codegym.classroom.model.Classes;
 import com.codegym.classroom.model.Classroom;
+import com.codegym.classroom.model.Lecture;
 import com.codegym.classroom.repository.IClassesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,10 @@ public class ClassesService implements IClassesService {
     @Override
     public Iterable<Classes> findAllByClassroom(Classroom classroom) {
         return classesRepository.findAllByClassroom(classroom);
+    }
+
+    @Override
+    public Iterable<Lecture> getAllInstructorHasFreeTime(String classTime) {
+        return classesRepository.getAllInstructorHasFreeTime(classTime);
     }
 }

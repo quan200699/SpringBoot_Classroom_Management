@@ -1,6 +1,7 @@
 package com.codegym.classroom.controller;
 
 import com.codegym.classroom.model.Classes;
+import com.codegym.classroom.model.Lecture;
 import com.codegym.classroom.model.Student;
 import com.codegym.classroom.service.classes.IClassesService;
 import com.codegym.classroom.service.student.IStudentService;
@@ -61,5 +62,10 @@ public class ClassesController {
         Optional<Classes> classesOptional = classesService.findById(id);
         return classesOptional.map(classes -> new ResponseEntity<>(studentService.findAllByClasses(classes), HttpStatus.OK)
         ).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/instructors")
+    public ResponseEntity<Iterable<Lecture>> getAllInstructorHasFreeTime(@RequestParam("classTime") String classTime) {
+        return new ResponseEntity<>(classesService.getAllInstructorHasFreeTime(classTime), HttpStatus.OK);
     }
 }
