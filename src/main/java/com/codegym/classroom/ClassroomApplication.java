@@ -1,11 +1,11 @@
 package com.codegym.classroom;
 
-import com.codegym.classroom.model.Classroom;
-import com.codegym.classroom.model.Job;
-import com.codegym.classroom.model.Language;
+import com.codegym.classroom.model.*;
 import com.codegym.classroom.service.classroom.IClassroomService;
 import com.codegym.classroom.service.job.IJobService;
 import com.codegym.classroom.service.language.ILanguageService;
+import com.codegym.classroom.service.module.IModuleService;
+import com.codegym.classroom.service.program.IProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,8 +25,16 @@ public class ClassroomApplication {
     @Autowired
     private IClassroomService classroomService;
 
+    @Autowired
+    private IProgramService programService;
+
+    @Autowired
+    private IModuleService moduleService;
+
     @PostConstruct
     public void init() {
+        List<Module> modules = (List<Module>) moduleService.findAll();
+        List<Program> programs = (List<Program>) programService.findAll();
         List<Classroom> classrooms = (List<Classroom>) classroomService.findAll();
         List<Job> jobs = (List<Job>) jobService.findAll();
         List<Language> languages = (List<Language>) languageService.findAll();
@@ -76,6 +84,37 @@ public class ClassroomApplication {
             classroom5.setName("Tầng 3 TT04");
             classroom5.setCapacity(36);
             classroomService.save(classroom5);
+        }
+        if (programs.isEmpty()) {
+            Program program1 = new Program();
+            program1.setName("Java");
+            programService.save(program1);
+            Program program2 = new Program();
+            program2.setName("PHP");
+            programService.save(program2);
+            Program program3 = new Program();
+            program3.setName("ASP");
+            programService.save(program3);
+            if (modules.isEmpty()) {
+                for (int i = 1; i <= 6; i++) {
+                    Module module = new Module();
+                    module.setName("Module " + i);
+                    module.setProgram(program1);
+                    moduleService.save(module);
+                }
+                for (int i = 1; i <= 5; i++) {
+                    Module module = new Module();
+                    module.setName("Module " + i);
+                    module.setProgram(program2);
+                    moduleService.save(module);
+                }
+                for (int i = 1; i <= 5; i++) {
+                    Module module = new Module();
+                    module.setName("Module " + i);
+                    module.setProgram(program3);
+                    moduleService.save(module);
+                }
+            }
         }
     }
 
