@@ -16,6 +16,8 @@ public class Classes {
 
     private String classTime;
 
+    private String module;
+
     @ManyToOne
     private Program program;
 
