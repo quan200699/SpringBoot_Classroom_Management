@@ -1,6 +1,8 @@
 package com.codegym.classroom.controller;
 
+import com.codegym.classroom.model.Classes;
 import com.codegym.classroom.model.Lecture;
+import com.codegym.classroom.service.classes.IClassesService;
 import com.codegym.classroom.service.lecture.ILectureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,9 @@ import java.util.Optional;
 public class LectureController {
     @Autowired
     private ILectureService lectureService;
+
+    @Autowired
+    private IClassesService classesService;
 
     @GetMapping
     public ResponseEntity<Iterable<Lecture>> getAllLecture() {
@@ -49,5 +54,17 @@ public class LectureController {
             lectureService.remove(id);
             return new ResponseEntity<>(lecture, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/{id}/instructor/classes")
+    public ResponseEntity<Iterable<Classes>> getAllClassByInstructor(@PathVariable Long id) {
+        Optional<Lecture> lectureOptional = lectureService.findById(id);
+        return lectureOptional.map(lecture -> new ResponseEntity<>(classesService.findAllByInstructor(lecture), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/{id}/coach/classes")
+    public ResponseEntity<Iterable<Classes>> getAllClassByCoach(@PathVariable Long id) {
+        Optional<Lecture> lectureOptional = lectureService.findById(id);
+        return lectureOptional.map(lecture -> new ResponseEntity<>(classesService.findAllByCoach(lecture), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
