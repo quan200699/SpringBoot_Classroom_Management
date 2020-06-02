@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface IClassesRepository extends JpaRepository<Classes, Long> {
     Iterable<Classes> findAllByClassroom(Classroom classroom);
 
-    @Query("select l from Lecture l left join Classes c on c.instructor.id = l.id where c.classTime <> ?1 or c.classTime is null")
+    @Query("select l from Lecture l where l.id not in (select l.id from Lecture l left join Classes c on c.instructor.id = l.id where c.classTime = ?1)")
     Iterable<Lecture> getAllInstructorHasFreeTime(String classTime);
 
     Iterable<Classes> findAllByInstructor(Lecture lecture);
