@@ -70,8 +70,8 @@ public class ClassesController {
     }
 
     @GetMapping("/{id}/tutors")
-    public ResponseEntity<Iterable<Lecture>> getAllTutorHasFreeTime(@PathVariable Long id, @RequestParam("classTime") String classTime) {
+    public ResponseEntity<Iterable<Lecture>> getAllTutorHasFreeTime(@PathVariable Long id, @RequestParam("classTime") String classTime, @RequestParam("jobId") Long jobId) {
         Optional<Classes> classes = classesService.findById(id);
-        return classes.map(classes1 -> new ResponseEntity<>(classesService.getAllTutorHasFreeTime(id, classTime), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return classes.map(classes1 -> new ResponseEntity<>(classesService.getAllTutorHasFreeTime(id, classTime, jobId), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

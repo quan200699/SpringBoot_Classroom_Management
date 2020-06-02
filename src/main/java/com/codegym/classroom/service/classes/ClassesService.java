@@ -55,7 +55,7 @@ public class ClassesService implements IClassesService {
     }
 
     @Override
-    public Iterable<Lecture> getAllTutorHasFreeTime(Long id, String classTime) {
-        return classesRepository.getAllTutorHasFreeTime(id, classTime);
+    public Iterable<Lecture> getAllTutorHasFreeTime(Long id, String classTime, Long jobId) {
+        return classesRepository.getAllTutorHasFreeTime(id, classTime, jobId);
     }
 }
