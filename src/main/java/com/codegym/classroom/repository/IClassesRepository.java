@@ -17,4 +17,7 @@ public interface IClassesRepository extends JpaRepository<Classes, Long> {
     Iterable<Classes> findAllByInstructor(Lecture lecture);
 
     Iterable<Classes> findAllByCoach(Lecture lecture);
+
+    @Query("select l from Classes c left join c.tutors l where c.id=?1 and l.id not in(select l.id from Lecture l left join Classes c on c.instructor.id = l.id where c.classTime = ?2)")
+    Iterable<Lecture> getAllTutorHasFreeTime(Long id, String classTime);
 }

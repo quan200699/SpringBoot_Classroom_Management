@@ -53,4 +53,9 @@ public class ClassesService implements IClassesService {
     public Iterable<Classes> findAllByCoach(Lecture lecture) {
         return classesRepository.findAllByCoach(lecture);
     }
+
+    @Override
+    public Iterable<Lecture> getAllTutorHasFreeTime(Long id, String classTime) {
+        return classesRepository.getAllTutorHasFreeTime(id, classTime);
+    }
 }

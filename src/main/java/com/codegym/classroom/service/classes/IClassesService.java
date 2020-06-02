@@ -13,4 +13,6 @@ public interface IClassesService extends IGeneralService<Classes> {
     Iterable<Classes> findAllByInstructor(Lecture lecture);
 
     Iterable<Classes> findAllByCoach(Lecture lecture);
+
+    Iterable<Lecture> getAllTutorHasFreeTime(Long id, String classTime);
 }
